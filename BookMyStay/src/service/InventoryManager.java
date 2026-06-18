@@ -99,4 +99,27 @@ public class InventoryManager {
         return roomPriceMap;
     }
 
+    // Decrement room count after successful booking
+
+    public boolean allocateRoom(String roomType) {
+
+        if (!roomCountMap.containsKey(roomType)) {
+
+            return false;
+
+        }
+
+        int availableRooms = roomCountMap.get(roomType);
+
+        if (availableRooms <= 0) {
+
+            return false;
+
+        }
+
+        roomCountMap.put(roomType, availableRooms - 1);
+
+        return true;
+
+    }
 }

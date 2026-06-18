@@ -1,5 +1,6 @@
 import model.Reservation;
 import service.BookingQueueService;
+import service.BookingService;
 import service.InventoryManager;
 import service.SearchService;
 
@@ -7,28 +8,28 @@ public class Main {
 
     public static void main(String[] args) {
 
-        InventoryManager inventoryManager =
+        InventoryManager inventory =
                 new InventoryManager();
 
-        inventoryManager.addRoomType(
+        inventory.addRoomType(
                 "Single",
-                15,
+                2,
                 2500);
 
-        inventoryManager.addRoomType(
+        inventory.addRoomType(
                 "Double",
-                10,
+                2,
                 4000);
 
-        inventoryManager.addRoomType(
+        inventory.addRoomType(
                 "Suite",
-                5,
+                1,
                 7000);
 
-        SearchService searchService =
-                new SearchService(inventoryManager);
+        SearchService search =
+                new SearchService(inventory);
 
-        searchService.displayAvailableRooms();
+        search.displayAvailableRooms();
 
         BookingQueueService bookingQueue =
                 new BookingQueueService();
@@ -45,7 +46,7 @@ public class Main {
                 new Reservation(
                         "R102",
                         "Priya",
-                        "Double"));
+                        "Single"));
 
         bookingQueue.addBookingRequest(
 
@@ -54,11 +55,24 @@ public class Main {
                         "Rahul",
                         "Suite"));
 
-        bookingQueue.displayBookingQueue();
+        BookingService bookingService =
+                new BookingService(inventory);
 
-        bookingQueue.processNextBooking();
+        Reservation reservation;
 
-        bookingQueue.displayBookingQueue();
+        while ((reservation =
+                bookingQueue.processNextBooking()) != null) {
+
+            bookingService.confirmReservation(
+                    reservation);
+
+        }
+
+        bookingService.displayAllocatedRooms();
+
+        System.out.println();
+
+        inventory.displayInventory();
 
     }
 
