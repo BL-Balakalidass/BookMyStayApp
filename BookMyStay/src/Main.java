@@ -1,3 +1,5 @@
+import model.Reservation;
+import service.BookingQueueService;
 import service.InventoryManager;
 import service.SearchService;
 
@@ -26,25 +28,37 @@ public class Main {
         SearchService searchService =
                 new SearchService(inventoryManager);
 
-        // Display available rooms
-
         searchService.displayAvailableRooms();
 
-        // Search for Single room
+        BookingQueueService bookingQueue =
+                new BookingQueueService();
 
-        searchService.searchRoom("Single");
+        bookingQueue.addBookingRequest(
 
-        // Search unavailable room
+                new Reservation(
+                        "R101",
+                        "Arun",
+                        "Single"));
 
-        inventoryManager.updateRoomCount(
-                "Suite",
-                0);
+        bookingQueue.addBookingRequest(
 
-        searchService.searchRoom("Suite");
+                new Reservation(
+                        "R102",
+                        "Priya",
+                        "Double"));
 
-        // Search invalid room
+        bookingQueue.addBookingRequest(
 
-        searchService.searchRoom("Deluxe");
+                new Reservation(
+                        "R103",
+                        "Rahul",
+                        "Suite"));
+
+        bookingQueue.displayBookingQueue();
+
+        bookingQueue.processNextBooking();
+
+        bookingQueue.displayBookingQueue();
 
     }
 
