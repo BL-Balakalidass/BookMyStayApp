@@ -1,4 +1,5 @@
 import service.InventoryManager;
+import service.SearchService;
 
 public class Main {
 
@@ -7,42 +8,43 @@ public class Main {
         InventoryManager inventoryManager =
                 new InventoryManager();
 
-        // Initialize room inventory
-
         inventoryManager.addRoomType(
                 "Single",
                 15,
-                2500.0);
+                2500);
 
         inventoryManager.addRoomType(
                 "Double",
                 10,
-                4000.0);
+                4000);
 
         inventoryManager.addRoomType(
                 "Suite",
                 5,
-                7000.0);
+                7000);
 
-        // Display initial inventory
+        SearchService searchService =
+                new SearchService(inventoryManager);
 
-        inventoryManager.displayInventory();
+        // Display available rooms
 
-        // Update room count
+        searchService.displayAvailableRooms();
+
+        // Search for Single room
+
+        searchService.searchRoom("Single");
+
+        // Search unavailable room
 
         inventoryManager.updateRoomCount(
-                "Double",
-                12);
-
-        // Update room price
-
-        inventoryManager.updateRoomPrice(
                 "Suite",
-                7500.0);
+                0);
 
-        // Display updated inventory
+        searchService.searchRoom("Suite");
 
-        inventoryManager.displayInventory();
+        // Search invalid room
+
+        searchService.searchRoom("Deluxe");
 
     }
 
