@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/BookMyStay/BookMyStay.iml" filepath="$PROJECT_DIR$/BookMyStay/BookMyStay.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/BookMyStayApp.iml" filepath="$PROJECT_DIR$/.idea/BookMyStayApp.iml" />
     </modules>
   </component>
 </project>
