@@ -1,78 +1,39 @@
-import model.Reservation;
-import service.BookingQueueService;
-import service.BookingService;
-import service.InventoryManager;
-import service.SearchService;
+import model.Service;
+import service.ServiceManager;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        InventoryManager inventory =
-                new InventoryManager();
+        ServiceManager serviceManager =
+                new ServiceManager();
 
-        inventory.addRoomType(
-                "Single",
-                2,
-                2500);
+        serviceManager.addService(
 
-        inventory.addRoomType(
-                "Double",
-                2,
-                4000);
+                "R101",
 
-        inventory.addRoomType(
-                "Suite",
-                1,
-                7000);
+                new Service(
+                        "Breakfast",
+                        500));
 
-        SearchService search =
-                new SearchService(inventory);
+        serviceManager.addService(
 
-        search.displayAvailableRooms();
+                "R101",
 
-        BookingQueueService bookingQueue =
-                new BookingQueueService();
+                new Service(
+                        "Spa",
+                        2000));
 
-        bookingQueue.addBookingRequest(
+        serviceManager.addService(
 
-                new Reservation(
-                        "R101",
-                        "Arun",
-                        "Single"));
+                "R101",
 
-        bookingQueue.addBookingRequest(
+                new Service(
+                        "Airport Pickup",
+                        1000));
 
-                new Reservation(
-                        "R102",
-                        "Priya",
-                        "Single"));
-
-        bookingQueue.addBookingRequest(
-
-                new Reservation(
-                        "R103",
-                        "Rahul",
-                        "Suite"));
-
-        BookingService bookingService =
-                new BookingService(inventory);
-
-        Reservation reservation;
-
-        while ((reservation =
-                bookingQueue.processNextBooking()) != null) {
-
-            bookingService.confirmReservation(
-                    reservation);
-
-        }
-
-        bookingService.displayAllocatedRooms();
-
-        System.out.println();
-
-        inventory.displayInventory();
+        serviceManager.displayServices(
+                "R101");
 
     }
 
