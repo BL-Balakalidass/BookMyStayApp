@@ -1,39 +1,58 @@
-import model.Service;
-import service.ServiceManager;
+import model.Reservation;
+import service.ReportService;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        ServiceManager serviceManager =
-                new ServiceManager();
+        ReportService reportService =
+                new ReportService();
 
-        serviceManager.addService(
+        Reservation reservation1 =
+                new Reservation(
+                        "R101",
+                        "Arun",
+                        "Single");
 
-                "R101",
+        Reservation reservation2 =
+                new Reservation(
+                        "R102",
+                        "Priya",
+                        "Double");
 
-                new Service(
-                        "Breakfast",
-                        500));
+        Reservation reservation3 =
+                new Reservation(
+                        "R103",
+                        "Rahul",
+                        "Suite");
 
-        serviceManager.addService(
+        // Store confirmed reservations
 
-                "R101",
+        reportService.addReservation(
+                reservation1);
 
-                new Service(
-                        "Spa",
-                        2000));
+        reportService.addReservation(
+                reservation2);
 
-        serviceManager.addService(
+        reportService.addReservation(
+                reservation3);
 
-                "R101",
+        // Display booking history
 
-                new Service(
-                        "Airport Pickup",
-                        1000));
+        reportService.displayBookingHistory();
 
-        serviceManager.displayServices(
-                "R101");
+        // Cancel reservation
+
+        reportService.cancelReservation(
+                "R102");
+
+        // Display updated history
+
+        reportService.displayBookingHistory();
+
+        // Generate report
+
+        reportService.generateReport();
 
     }
 
